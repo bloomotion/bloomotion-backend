@@ -5,8 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const loginRouter = require("./routes/login");
 
 const app = express();
 
@@ -22,8 +21,9 @@ app.use(
   }),
 );
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+require("./db")();
+
+app.use("/login", loginRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
