@@ -6,6 +6,7 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const loginRouter = require("./routes/login");
+const userRouter = require("./routes/user");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(
 require("./db")();
 
 app.use("/login", loginRouter);
+app.use("/users", userRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
