@@ -17,8 +17,8 @@ const handleLogin = async (req, res, next) => {
     }
 
     const accessToken = jwt.sign(
-      { name, email },
-      process.env.REFRESH_TOKEN_SECRET,
+      { name, email, id: user._id },
+      process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "1d" },
     );
 
@@ -36,6 +36,15 @@ const handleLogin = async (req, res, next) => {
   }
 };
 
+const verifyUser = async (req, res, next) => {
+  const { id } = req;
+
+  res.json({
+    result: { id },
+  });
+};
+
 module.exports = {
   handleLogin,
+  verifyUser,
 };

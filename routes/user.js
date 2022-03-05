@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const { getNewEmotion } = require("../controllers/userController");
+const { getEmotion, setNewEmotion } = require("../controllers/userController");
 
-router.post("/:id/emotion", getNewEmotion);
+router.get("/:id/emotion", getEmotion);
+router.post("/:id/emotion", setNewEmotion);
 
 module.exports = router;
