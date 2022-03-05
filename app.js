@@ -7,6 +7,7 @@ const cors = require("cors");
 
 const loginRouter = require("./routes/login");
 const userRouter = require("./routes/user");
+const verifyAccessToken = require("./middlewares/verifyAccessToken");
 
 const app = express();
 
@@ -25,7 +26,7 @@ app.use(
 require("./db")();
 
 app.use("/login", loginRouter);
-app.use("/users", userRouter);
+app.use("/users", verifyAccessToken, userRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
