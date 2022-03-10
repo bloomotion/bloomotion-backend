@@ -7,7 +7,7 @@ const getEmotion = async (req, res, next) => {
     const user = await User.findById(id);
 
     res.json({
-      result: user,
+      result: user.emotion,
     });
   } catch (err) {
     console.error(err);
