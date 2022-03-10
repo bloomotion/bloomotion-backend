@@ -2,14 +2,13 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const handleLogin = async (req, res, next) => {
-  const { name, email } = req.body;
+  const { email } = req.body;
 
   try {
     let user = await User.findOne({ email });
 
     if (!user) {
       const newUser = {
-        name,
         email,
       };
 
@@ -17,7 +16,7 @@ const handleLogin = async (req, res, next) => {
     }
 
     const accessToken = jwt.sign(
-      { name, email, id: user._id },
+      { email, id: user._id },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "1d" },
     );
@@ -25,7 +24,6 @@ const handleLogin = async (req, res, next) => {
     res.json({
       result: {
         id: user._id,
-        name: user.name,
         email: user.email,
         accessToken: accessToken,
       },
