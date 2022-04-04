@@ -10,7 +10,6 @@ const getEmotion = async (req, res, next) => {
       result: user.emotion,
     });
   } catch (err) {
-    console.error(err);
     next(err);
   }
 };
