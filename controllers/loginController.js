@@ -1,8 +1,15 @@
+const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const handleLogin = async (req, res, next) => {
   const { email } = req.body;
+
+  if (!email) {
+    next(createError(404));
+
+    return;
+  }
 
   try {
     let user = await User.findOne({ email });
@@ -28,9 +35,8 @@ const handleLogin = async (req, res, next) => {
         accessToken: accessToken,
       },
     });
-  } catch (error) {
-    console.error(error);
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 
